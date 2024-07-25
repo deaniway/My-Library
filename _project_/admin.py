@@ -10,7 +10,25 @@ class BookAdmin(SimpleHistoryAdmin):
     list_filter = ('is_borrowed',)
 
 
+class UserAdmin(SimpleHistoryAdmin):
+    list_display = ('username', 'is_librarian', 'is_reader')
+    search_fields = ('username', 'first_name', 'last_name')
+    list_filter = ('is_librarian', 'is_reader')
+
+
+class LibrarianAdmin(SimpleHistoryAdmin):
+    list_display = ('user', 'employee_id',)
+    search_fields = ('user', 'employee_id')
+    list_filter = ('employee_id',)
+
+
+class ReaderAdmin(SimpleHistoryAdmin):
+    list_display = ('first_name', 'last_name', 'address')
+    search_fields = ('first_name', 'last_name', 'address')
+    list_filter = ('user',)
+
+
 admin.site.register(Book, BookAdmin)
-admin.site.register(User)
-admin.site.register(Librarian)
-admin.site.register(Reader)
+admin.site.register(User, UserAdmin)
+admin.site.register(Librarian, LibrarianAdmin)
+admin.site.register(Reader, ReaderAdmin)
