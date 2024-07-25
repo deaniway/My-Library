@@ -40,7 +40,11 @@
                 </li>
 
                 <li class="nav-item ms-2">
-                    <a class="btn btn-outline-success" href="{% url 'create' %}">Зарегистрироваться</a>
+                    <a class="btn btn-outline-success" href="{% url 'create_reader' %}">Зарегистрироваться Читателю</a>
+                </li>
+
+                <li class="nav-item ms-2">
+                    <a class="btn btn-outline-success" href="{% url 'create_librarian' %}">Зарегистрироваться Библиотекарю</a>
                 </li>
 
                 {% endif %}
