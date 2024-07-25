@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% if user.is_librarian %}
+
+{% block content %}
+<h2 class="mb-4">Список взятых книг</h2>
+
+<table class="table table-striped table-bordered">
+  <thead class="table-light">
+    <tr>
+      <th>Название книги</th>
+      <th>Пользователь</th>
+      <th>Дата взятия</th>
+      <th>Время у пользователя</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for book in list_borrow %}
+    <tr>
+      <td>{{ book.title }}</td>
+      <td>{{ book.borrowed_by.username }}</td>
+      <td>{{ book.borrowed_date }}</td>
+      <td>
+        {% if book.borrowed_date %}
+          {{ book.borrowed_duration }}
+        {% else %}
+          Нет информации
+        {% endif %}
+      </td>
+    </tr>
+    {% empty %}
+    <tr>
+      <td colspan="6">Нет взятых книг</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
+
+{% endif %}

@@ -1,0 +1,51 @@
+{% load django_bootstrap5 %}
+
+<nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'index' %}">My📚Library</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+                aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav me-auto mb-2 mb-md-0">
+
+                {% if user.is_authenticated %}
+                {% if request.user.librarian %}
+
+                <a class="nav-link active" aria-current="page" href="{% url 'list_borrow' %}">Взятые книги</a>
+                {% else %}
+
+                <a class="nav-link active" aria-current="page" href="{% url 'my_books' %}">Мои книги</a>
+
+                {% endif %}
+
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% url 'list' %}">Каталог</a>
+                </li>
+
+
+                <li class="nav-item ms-2">
+                    <form method="post" action="{% url 'logout' %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger">Выйти</button>
+                    </form>
+                </li>
+
+                {% else %}
+
+                <li class="nav-item ms-2">
+                    <a class="btn btn-outline-success" href="{% url 'login' %}">Войти</a>
+                </li>
+
+                <li class="nav-item ms-2">
+                    <a class="btn btn-outline-success" href="{% url 'create' %}">Зарегистрироваться</a>
+                </li>
+
+                {% endif %}
+
+            </ul>
+        </div>
+    </div>
+</nav>
