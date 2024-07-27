@@ -1,9 +1,14 @@
 from pathlib import Path
 from datetime import timedelta
+import os
+import dj_database_url
+from dotenv import load_dotenv
 
+load_dotenv()
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'django-insecure-%i#=b)n#(^s275&w%90khjguvl_g7@@*v(ujys*3o#5zi3i9(%'
+SECRET_KEY = os.getenv('SECRET_KEY')
+
 
 DEBUG = True
 
@@ -62,10 +67,12 @@ WSGI_APPLICATION = '_project_.wsgi.application'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.config(
+        default=os.getenv(
+            'DATABASE_URL',
+            'postgresql://pguser:pgpass@localhost:5434/pgdb'
+        )
+    )
 }
 
 # Password validation

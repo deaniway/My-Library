@@ -5,10 +5,9 @@ from simple_history.admin import SimpleHistoryAdmin
 
 
 class BookAdmin(SimpleHistoryAdmin):
-    list_display = ('title', 'author', 'genre', 'is_borrowed', 'borrowed_by', 'borrowed_date', )
+    list_display = ('title', 'author', 'genre', 'is_borrowed', 'borrowed_by', 'borrowed_date',)
     search_fields = ('title', 'author', 'genre', 'borrowed_by__user__first_name', 'borrowed_by__user__last_name')
     list_filter = ('is_borrowed', 'borrowed_by__user__last_name')
-
 
 
 class LibrarianAdmin(SimpleHistoryAdmin):

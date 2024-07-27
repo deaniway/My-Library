@@ -1,14 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from .models import Reader, Librarian
 from django.contrib.auth import get_user_model
-
-"""
-class UserRegisterForm(UserCreationForm):
-    class Meta:
-        model = User
-        fields = ['username', 'password1', 'password2']
-"""
 
 
 class ReaderRegisterForm(UserCreationForm):
@@ -16,7 +8,7 @@ class ReaderRegisterForm(UserCreationForm):
 
     class Meta:
         model = get_user_model()
-        fields = [ 'username', 'first_name', 'last_name', 'address']
+        fields = ['username', 'first_name', 'last_name', 'address']
 
 
 class LibrarianRegisterForm(UserCreationForm):

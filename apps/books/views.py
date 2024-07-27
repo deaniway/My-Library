@@ -40,7 +40,7 @@ class MyBooksView(TemplateView):
         try:
             reader = Reader.objects.get(user=self.request.user)
             context['borrowed_books'] = reader.borrowed_books.all().order_by('title')
-        except:
+        except Reader.DoesNotExist:
             context['borrowed_books'] = None
         return context
 
@@ -55,7 +55,6 @@ class BorrowBookView(View):
                 book.borrowed_by = None
                 book.borrowed_date = None
                 messages.info(request, f'Вы успешно вернули книгу "{book.title}".')
-
 
         else:
             book.is_borrowed = True
