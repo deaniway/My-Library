@@ -15,7 +15,6 @@ class Book(models.Model):
         related_name='borrowed_books'
     )
     borrowed_date = models.DateTimeField(null=True, blank=True)
-    returned_date = models.DateTimeField(null=True, blank=True)
 
     def __str__(self):
         return self.title

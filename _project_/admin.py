@@ -2,7 +2,6 @@ from django.contrib import admin
 from apps.books.models import Book
 from apps.users.models import Librarian, Reader
 from simple_history.admin import SimpleHistoryAdmin
-from django.utils import timezone
 
 
 class BookAdmin(SimpleHistoryAdmin):
