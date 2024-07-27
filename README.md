@@ -5,7 +5,6 @@ The application is a simplified analogue of the CRM system for the library.
 The project implements 2 user entities - Librarian and Reader, each of which has its own functionality.
 Also implemented API and an improved ADMIN PANEL
 
-
 #### Minimum Requirements:
 
 - [x] Python
@@ -16,7 +15,7 @@ Also implemented API and an improved ADMIN PANEL
 
 ### This is  use next tools:
 
-| Технология                    | Версия  |
+| Tools                         | Version |
 |-------------------------------|---------|
 | Python                        | ^3.11   |
 | Django                        | ^5.0.7  |
@@ -39,6 +38,7 @@ Also implemented API and an improved ADMIN PANEL
 |  4   |   Run the command to create tables<br/>`make makemigrations` /  `make migrate`   | 
 |  5   |                  Create superuser, use the<br/>`make superuser`                  |
 |  6   |                To start the Django server, use the<br/>`make dev`                |
+
 ### *You must have:*
 
 - [Poetry](https://python-poetry.org)
