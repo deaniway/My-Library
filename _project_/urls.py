@@ -10,4 +10,5 @@ urlpatterns = [
     path('logout/', UserLogoutView.as_view(), name='logout'),
     path('users/', include('apps.users.urls')),
     path('books/', include('apps.books.urls')),
+    path('api/v1/', include('apps.api.urls'))
 ]

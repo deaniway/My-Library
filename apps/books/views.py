@@ -8,6 +8,7 @@ from django.utils import timezone
 from .models import Book
 from .forms import BookCreationForm
 from core.mixins import BorrowListMixin, UserIsLibrarianRequiredMixin
+from apps.users.models import Reader
 
 
 class BookCreationView(UserIsLibrarianRequiredMixin, CreateView):
@@ -36,7 +37,11 @@ class MyBooksView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['borrowed_books'] = self.request.user.borrowed_books.all().order_by('title')
+        try:
+            reader = Reader.objects.get(user=self.request.user)
+            context['borrowed_books'] = reader.borrowed_books.all().order_by('title')
+        except:
+            context['borrowed_books'] = None
         return context
 
 
@@ -45,7 +50,7 @@ class BorrowBookView(View):
         book = Book.objects.get(id=kwargs['book_id'])
 
         if book.is_borrowed:
-            if book.borrowed_by == request.user:
+            if book.borrowed_by == Reader.objects.get(user=request.user):
                 book.is_borrowed = False
                 book.borrowed_by = None
                 book.borrowed_date = None
@@ -54,7 +59,7 @@ class BorrowBookView(View):
 
         else:
             book.is_borrowed = True
-            book.borrowed_by = request.user
+            book.borrowed_by = Reader.objects.get(user=request.user)
             book.borrowed_date = timezone.now()
             messages.success(request, f'Вы успешно взяли книгу "{book.title}".')
 

@@ -17,7 +17,7 @@
     {% for book in list_borrow %}
     <tr>
       <td>{{ book.title }}</td>
-      <td>{{ book.borrowed_by.username }}</td>
+      <td>{{ book.borrowed_by.user }}</td>
       <td>{{ book.borrowed_date }}</td>
       <td>
         {% if book.borrowed_date %}

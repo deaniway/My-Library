@@ -1,5 +1,5 @@
 from django.db import models
-from apps.users.models import User
+from apps.users.models import Reader
 
 
 class Book(models.Model):
@@ -7,7 +7,7 @@ class Book(models.Model):
     author = models.CharField(max_length=50)
     genre = models.CharField(max_length=50)
     is_borrowed = models.BooleanField(default=False)
-    borrowed_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True,
+    borrowed_by = models.ForeignKey(Reader, on_delete=models.SET_NULL, null=True, blank=True,
                                     related_name='borrowed_books')
     borrowed_date = models.DateTimeField(null=True, blank=True)
 

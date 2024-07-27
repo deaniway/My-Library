@@ -1,19 +1,37 @@
+from django.contrib.auth import login
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView
-from core.mixins import ReaderFormMixin, LibrarianFormMixin
-from .models import User
-from .forms import UserRegisterForm
+from .models import Reader, Librarian
+from .forms import ReaderRegisterForm, LibrarianRegisterForm
 
 
-class UserReaderCreateView(ReaderFormMixin, CreateView):
-    model = User
-    form_class = UserRegisterForm
+class UserReaderCreateView(CreateView):
+    model = Reader
+    form_class = ReaderRegisterForm
     template_name = 'users/create.html'
     success_url = reverse_lazy('index')
 
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        Reader.objects.create(
+            user=self.object,
+            address=form.cleaned_data['address']
+        )
+        login(self.request, self.object)
+        return response
 
-class UserLibrarianCreateView(LibrarianFormMixin, CreateView):
-    model = User
-    form_class = UserRegisterForm
+
+class UserLibrarianCreateView(CreateView):
+    model = Librarian
+    form_class = LibrarianRegisterForm
     template_name = 'users/creation_librarian.html'
     success_url = reverse_lazy('index')
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        Librarian.objects.create(
+            user=self.object,
+            employee_id=form.cleaned_data['employee_id']
+        )
+        login(self.request, self.object)
+        return response

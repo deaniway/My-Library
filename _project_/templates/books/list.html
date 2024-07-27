@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2 class="mb-4">Book Catalog</h2>
+<h2 class="mb-4">Книжный каталог</h2>
 
 {% if request.user.librarian %}
 <a href="{% url 'create_book' %}" class="btn btn-primary mb-4">Добавить книгу</a>
@@ -10,17 +10,22 @@
 <table class="table table-striped table-bordered">
     <thead class="table-light">
     <tr>
-        <th>Title</th>
-        <th>Author</th>
-        <th>Genre</th>
-        <th>Action</th>
+        <th>ID</th>
+        <th>Название</th>
+        <th>Автор</th>
+        <th>Жанр</th>
+        <th>Действие</th>
     </tr>
     </thead>
     <tbody>
     {% for book in books %}
     <tr>
         <td>
+            {{ book.id }}
+        </td>
+        <td>
             {{ book.title }}
+
             <button class="btn btn-sm btn-outline-primary" onclick="copyToClipboard('{{ book.title }}')">
                 📤
             </button>
@@ -28,27 +33,39 @@
         <td>{{ book.author }}</td>
         <td>{{ book.genre }}</td>
         <td>
+            {% if request.user.librarian %}
+            <!--  Для библиотекаря -->
             {% if book.is_borrowed %}
-            {% if book.borrowed_by == request.user %}
-            <form method="post" action="{% url 'borrow_book' book.id %}" class="d-inline">
-                {% csrf_token %}
-                <button type="submit" class="btn btn-danger">
-                    Вернуть
-                </button>
-            </form>
-            {% else %}
             <button class="btn btn-secondary" disabled>
                 Взята читателем
-            </button>
-            {% endif %}
-            {% else %}
-            <form method="post" action="{% url 'borrow_book' book.id %}" class="d-inline">
-                {% csrf_token %}
-                <button type="submit" class="btn btn-success">
-                    Взять
-                </button>
-            </form>
-            {% endif %}
+                {% else %}
+                <button class="btn btn-success" disabled>
+                    Доступна
+                    {% endif %}
+                    {% else %}
+                    <!--  для читателей  -->
+                    {% if book.is_borrowed %}
+                    {% if book.borrowed_by == request.user.reader %}
+                    <form method="post" action="{% url 'borrow_book' book.id %}" class="d-inline">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger">
+                            Вернуть
+                        </button>
+                    </form>
+                    {% else %}
+                    <button class="btn btn-secondary" disabled>
+                        Взята читателем
+                    </button>
+                    {% endif %}
+                    {% else %}
+                    <form method="post" action="{% url 'borrow_book' book.id %}" class="d-inline">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-success">
+                            Взять
+                        </button>
+                    </form>
+                    {% endif %}
+                    {% endif %}
         </td>
     </tr>
     {% endfor %}
@@ -56,12 +73,12 @@
 </table>
 
 <script>
-function copyToClipboard(text) {
-    navigator.clipboard.writeText(text).then(function() {
-        alert('Название книги скопировано: ' + text);
-    }).catch(function(error) {
-        console.error('Ошибка копирования текста: ', error);
-    });
-}
+    function copyToClipboard(text) {
+        navigator.clipboard.writeText(text).then(function() {
+            alert('Название книги скопировано: ' + text);
+        }).catch(function(error) {
+            console.error('Ошибка копирования текста: ', error);
+        });
+    }
 </script>
 {% endblock %}
