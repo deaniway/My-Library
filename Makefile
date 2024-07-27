@@ -17,5 +17,5 @@ dev-db:
 	docker-compose up -d
 
 lint:
-	poetry run flake8 _project_ apps core
+	poetry run flake8 _project_ apps
 

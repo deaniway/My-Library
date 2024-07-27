@@ -7,11 +7,11 @@ from django.contrib import messages
 from django.utils import timezone
 from .models import Book
 from .forms import BookCreationForm
-from core.mixins import BorrowListMixin, UserIsLibrarianRequiredMixin
+from .mixins import BorrowListMixin
 from apps.users.models import Reader
 
 
-class BookCreationView(UserIsLibrarianRequiredMixin, CreateView):
+class BookCreationView(CreateView):
     model = Book
     form_class = BookCreationForm
     template_name = 'books/create.html'
