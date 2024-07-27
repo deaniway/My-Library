@@ -1,3 +1,9 @@
+install:
+	poetry install
+
+superuser:
+	python3 manage.py createsuperuser
+
 dev:
 	python3 manage.py runserver
 
