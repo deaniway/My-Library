@@ -39,6 +39,8 @@ Also implemented API and an improved ADMIN PANEL
 |  5   |                  Create superuser, use the<br/>`make superuser`                  |
 |  6   |                To start the Django server, use the<br/>`make dev`                |
 
+#### P.s. Don't forget to update the `.env` file!
+
 ### *You must have:*
 
 - [Poetry](https://python-poetry.org)
