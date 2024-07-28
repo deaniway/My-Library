@@ -63,7 +63,7 @@ Also implemented API and an improved ADMIN PANEL
 
 ```dotenv
 
-DATABASE_URL=postgresql://pguser:pgpass@localhost:5434/yourdatabase
+DATABASE_URL=postgresql://pguser:pgpass@localhost:5434/pgdb
 
 ```
 
